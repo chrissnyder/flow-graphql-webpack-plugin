@@ -1,0 +1,489 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+
+  // Language features that this codebase uses.
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
+    "generators": true,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "restParams": true,
+    "spread": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "unicodeCodePointEscapes": true,
+    "experimentalObjectRestSpread": true
+  },
+
+  // Use the Babel parser instead of the ESLint default.
+  "parser": "babel-eslint",
+
+  // ===========================================================================
+  // Rule definition. Please provide rationale for each with a comment.
+  // ===========================================================================
+
+  // Start with all recommended rules enabled (http://eslint.org/docs/rules/).
+  "extends": "eslint:recommended",
+
+  // Define global variables.
+  // NOTE: Synchronize this list with `flow/lib/_globals.js` and
+  // `flow/lib/_common.js`.
+  "globals": {},
+
+  // For more detail on a specific rule, see:
+  // - http://eslint.org/docs/rules/
+  // - https://github.com/yannickcr/eslint-plugin-react
+  "rules": {
+    // -------------------------------------------------------------------------
+    // Best Practices
+    // -------------------------------------------------------------------------
+
+    // Avoid unintentionally creating a sneaky missing-semicolon situation where
+    // two unrelated lines end up being interpreted as a single expression.
+    "no-unexpected-multiline": 2,
+
+    // Ensure that JSDoc comments are syntactically correct and match the actual
+    // function signature that they document.
+    "valid-jsdoc": 2,
+
+    // Ensure that object getters/setters are always present in pairs.
+    "accessor-pairs": 2,
+
+    // All `return` statements in a function must either specify a value or not
+    // specify a value. This avoids bugs where the return value is inconsistent.
+    "consistent-return": 2,
+
+    // Always require curly braces, even when a block only contains one
+    // statement. This promotes readability, consistency, and avoids
+    // unintentional bugs both when code is created and when it is maintained.
+    "curly": 2,
+
+    // Ensure that `switch` statements always contain a `default` case. This
+    // avoids unintentionally forgetting the `default` case. Simply define an
+    // empty default case if no default behavior is intended.
+    "default-case": 2,
+
+    // House style rule: Always place dots on the same line as the property in a
+    // member expression.
+    "dot-location": [2, "property"],
+
+    // Require strict equality comparisons (`===` and `!==`). This promotes
+    // clarity and avoids sneaky truthiness bugs. It is intentional that there
+    // is no exception for comparisions against `null` -- this ensures that code
+    // is as clear and obvious as possible.
+    "eqeqeq": 2,
+
+    // Require that any `for in` loops have a conditional to filter out
+    // properties that are inherited from the prototype chain. There should
+    // rarely be an occasion where this would be intentional. Best, though,
+    // would be to avoid the `for in` loop and use `Object.keys()` instead.
+    "guard-for-in": 2,
+
+    // Do not allow any use of `alert()`.
+    "no-alert": 2,
+
+    // Use of `arguments.caller` and `arguments.callee` is deprecated.
+    "no-caller": 2,
+
+    // House style rule: If an `if` block contains a `return` statement, do not
+    // allow an `else` block. It is not necessary. Put that code outside the
+    // conditional block instead.
+    "no-else-return": 2,
+
+    // Do not allow empty destructuring patterns. These are valid but pointless
+    // patterns, and certainly a mistake.
+    "no-empty-pattern": 2,
+
+    // Comparisons to `null` must check for strict equality. See comment
+    // associated with the "eqeqeq" rule.
+    "no-eq-null": 2,
+
+    // Disallow `eval()`. This requires no explanation. (Use `JSON.parse()` to
+    // evaluate stringified JSON.)
+    "no-eval": 2,
+
+    // Do not allow extending the prototype of native objects. Here be dragons.
+    "no-extend-native": 2,
+
+    // Do not allow use of `.bind()` when the bound function doesn't actually
+    // use `this`, or when the function was defined using `=>` (which binds
+    // `this` lexically). This avoids unnecessary code.
+    "no-extra-bind": 2,
+
+    // Disallow fallthrough in `switch` statements. Unintentional fallthrough is
+    // a common source of bugs. If fallthrough is intentional, denote it with a
+    // comment.
+    "no-fallthrough": 2,
+
+    // Float literals must always have numbers surrounding the decimal point.
+    "no-floating-decimal": 2,
+
+    // Disallow implicit type coercion. This promotes clarity and avoids
+    // sneaky type coercion bugs. Write explicit type conversion code.
+    "no-implicit-coercion": 2,
+
+    // Disallow implied use of `eval()`. See comment associated with "no-eval".
+    "no-implied-eval": 2,
+
+    // Prevent usage of `this` in invalid or questionable circumstances. This
+    // promotes proper, robust code.
+    "no-invalid-this": 2,
+
+    // Disallow labeled statements. Usage of labels with `break` and `continue`
+    // for flow control is obscure and error prone.
+    "no-labels": 2,
+
+    // Disallow standalone blocks if they are pointless (when no `let` or
+    // `const` is used inside). This avoids unnecessary code.
+    "no-lone-blocks": 2,
+
+    // House style rule: Disallow multiple spaces. Do not use spaces to column-
+    // align code. This allows easier formatting standardization and prevents
+    // fragile formatting that must be maintained.
+    "no-multi-spaces": 2,
+
+    // Do not allow reassignment of native objects. Here be more dragons.
+    "no-native-reassign": 2,
+
+    // Do not allow creation of functions via the `Function` constructor. This
+    // is unnecessary for general purposes and leads to unclear code.
+    "no-new-func": 2,
+
+    // Do not allow manual instantiation of wrapper objects -- in other words,
+    // no `new String()`, etc. This is unnecessary and leads to confusing code.
+    "no-new-wrappers": 2,
+
+    // House style rule: Require that objects created with `new` are assigned to
+    // a variable.
+    "no-new": 2,
+
+    // Octal escape sequences are deprecated. Use Unicode escape sequences
+    // instead.
+    "no-octal-escape": 2,
+
+    // Do not allow direct modification of function parameters. This leads to
+    // unclear code and may have unintended side-effects.
+    "no-param-reassign": [1, { "props": true }],
+
+    // Do not write code that directly uses `process.env`. Application config
+    // facilities or preprocessor comments should be used instead.
+    "no-process-env": 2,
+
+    // Use of `__proto__` is deprecated.
+    "no-proto": 2,
+
+    // Do not allow any assignment in `return` expressions. It leads to unclear
+    // code.
+    "no-return-assign": [2, "always"],
+
+    // Do not allow `javascript:` in URLs -- same reason as `eval()`.
+    "no-script-url": 2,
+
+    // Do not allow comparisons between the same variable. It is pointless and
+    // probably an unintentionally error.
+    "no-self-compare": 2,
+
+    // House style rule: Do not allow use of the comma operator. It is often
+    // used for too-clever code that would be better stated with more clarity,
+    // or is used by accident.
+    "no-sequences": 2,
+
+    // Only allow `Error` objects to be used with `throw`. This adheres to
+    // common best practices and promotes standardization.
+    "no-throw-literal": 2,
+
+    // Do not allow pointless experessions that have no side effects. Exceptions
+    // are made for expressions that make use of short-circuit evaluation and
+    // the ternary operator.
+    "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
+
+    // Do not allow variables to be declared but not used. Define an exception
+    // for variables named `_`.
+    "no-unused-vars": [2, { "vars": "all", "args": "after-used", "varsIgnorePattern": "^_$" }],
+
+    // Disallow use of `Function.prototype.call()` and
+    // `Function.prototype.apply()` when normal function invocation would have
+    // the same effect.
+    "no-useless-call": 2,
+
+    // Disallow use of the `void` operator. There is no good reason to use it
+    // with ES5+, where `undefined` cannot be reassigned.
+    "no-void": 2,
+
+    // Use of the `with` statement is deprecated.
+    "no-with": 2,
+
+    // Require use of the radix parameter with `parseInt()`. This improves
+    // clarity of intent and avoids unintended bugs from unexpected input.
+    "radix": 2,
+
+    // Require that immediate function invocation to wrap the function
+    // expression with parentheses, like `(function () {})()`.
+    "wrap-iife": [2, "inside"],
+
+    // House style rule: Disallow "Yoda" conditional expression order. This is
+    // so that we have a common style. The linter already ensures that we are
+    // not unintentionally assigning in the conditional expression.
+    "yoda": [2, "never"],
+
+    // -------------------------------------------------------------------------
+    // Strict Mode
+    // -------------------------------------------------------------------------
+
+    // Applying `use strict` is not necessary, ES6 modules are alrady always in
+    // strict-mode.
+    "strict": 0,
+
+    // -------------------------------------------------------------------------
+    // Variables
+    // -------------------------------------------------------------------------
+
+    // Do not allow creation of variable names that shadow restricted
+    // identifiers.
+    "no-shadow-restricted-names": 2,
+
+    // Disallow initializing variables to `undefined`. This already happens
+    // automatically and leads to useless code.
+    "no-undef-init": 2,
+
+    // -------------------------------------------------------------------------
+    // Node/CommonJS
+    // -------------------------------------------------------------------------
+
+    // Enforce that calls to `require()` only hapen at top-level module scope.
+    // This makes dependencies more obvious.
+    "global-require": 2,
+
+    // Do not allow the use of an expression like `new require(...)`. This is
+    // confusing because it does not do what it looks like it does.
+    "no-new-require": 2,
+
+    // -------------------------------------------------------------------------
+    // Style
+    // -------------------------------------------------------------------------
+
+    // House style rule: Do not allow leading or trailing spaces on the inside
+    // of square brackets. Must be like: `[x, y]`, not `[ x, y ]`.
+    "array-bracket-spacing": 2,
+
+    // House style rule: Require a leading and trailing space on the inside of
+    // single-line blocks. Must be like `() => { f() }`, not `() => {f()}`.
+    "block-spacing": 2,
+
+    // House style rule: Thou shalt use the "one true brace style".
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+
+    // House style rule: Use camelcase for all variable and object property
+    // names.
+    "camelcase": 2,
+
+    // House style rule: Require a space after commas.
+    "comma-spacing": 2,
+
+    // House style rule: Do not allow spaces inside the square brackets with
+    // computed properties. Must be like `{ [a]: b }`, not `{ [ a ]: b }`.
+    "computed-property-spacing": 2,
+
+    // House style rule: Use the variable name `self` whenever capturing `this`.
+    "consistent-this": [2, "self"],
+
+    // Require files to end with a single newline. This plays nicest with common
+    // usage of Unix tools.
+    "eol-last": 2,
+
+    // House style rule: When using `function`, require them to be function
+    // declarations. Arrow functions are excempt. Must be like `function () {}`,
+    // not `const f = function () {}`.
+    "func-style": [2, "declaration", { "allowArrowFunctions": true }],
+
+    // House style rule: Use two spaces for indentation. Within `switch` blocks,
+    // `case` statements must be indented one level.
+    "indent": [2, 2, { "SwitchCase": 1 }],
+
+    // House style rule: Use double-quotes for JSX attribute values, unless the
+    // value contains a double-quote character.
+    "jsx-quotes": [2, "prefer-double"],
+
+    // House style rule: In object literals, use use exactly zero spaces between
+    // the key name and the colon, and exactly one space between the colon and
+    // the property value.
+    "key-spacing": 2,
+
+    // House style rule: Enforce use of only Unix line endings.
+    "linebreak-style": [2, "unix"],
+
+    // Require parentheses when invoking a constructor function with `new`, even
+    // though the language bizarrely doesn't require it.
+    "new-parens": 2,
+
+    // Disallow use of the `Array` constructor to create a new array. Use array
+    // literal notation instead. An exception is allowed when creating a sparse
+    // array of a specific size.
+    "no-array-constructor": 2,
+
+    // Do not allow lone `if` statements inside an `else` block. It should be
+    // written as an `else if` instead.
+    "no-lonely-if": 2,
+
+    // Do not allow nested ternary expressions. This quickly leads to unreadable
+    // code. Use an `if` statement instead for flow control.
+    "no-nested-ternary": 2,
+
+    // Disallow use of the `Object` constructor. Use object literal notation
+    // instead.
+    "no-new-object": 2,
+
+    // When invoking functions, do not allow any spaces between the function
+    // name and the parentheses.
+    "no-spaced-func": 2,
+
+    // Do not allow any trailing spaces at the end of lines. This is messy.
+    "no-trailing-spaces": 2,
+
+    // Do not allow use of ternary expressions to select between two boolean
+    // literals. This is unnecessary code. Simply use a conditional expression
+    // instead.
+    "no-unneeded-ternary": 2,
+
+    // House style rule: require leading and trailing spaces on the inside of
+    // the curly brackets of a single-line object literal. Must be like:
+    // `{ a }`, not `{a}`.
+    "object-curly-spacing": [2, "always"],
+
+    // House style rule: Require separate statements for each variable
+    // declaration. With ES6 and `let`/`const`, there is no longer a good reason
+    // for the single `var` delcaration at the beginning of a function as a way
+    // to signal scoping rules. Enforcing a single style promotes consistency.
+    "one-var": [2, "never"],
+
+    // House style rule: Require that expressions with binary operators that are
+    // split over two lines have the line break before the operator.
+    "operator-linebreak": [2, "before"],
+
+    // House style rule: Require use of single-qutoes for string literals.
+    "quotes": [2, "single"],
+
+    // House style rule: Require a space after a semicolon between two
+    // statements on a single line.
+    "semi-spacing": 2,
+
+    // House style rule: Require that semicolons appear any place where they are
+    // valid. Omitting semicolons is not allowed.
+    "semi": [2, "always"],
+
+    // House style rule: Require a space after keywords that are followed by
+    // parentheses or curly brackets, like `if`, `while`, `try`, etc.
+    "space-after-keywords": [2, "always"],
+
+    // House style rule: Require a space before blocks.
+    "space-before-blocks": [2, "always"],
+
+    // House style rule: In a function declaration or expression, require no
+    // spaces between the function name (when present) and the parentheses. For
+    // anoymous functions, require a single space between `function` and the
+    // parentheses.
+    "space-before-function-paren": [2, { "named": "never", "anonymous": "always" }],
+
+    // House style rule: Require a space before keywords that are preceded by
+    // curly brackets, like `else`, `while`, `finally`, etc.
+    "space-before-keywords": [2, "always"],
+
+    // House style rule: Disallow leading and trailing spaces on the inside of
+    // parentheses. Must be like `(a, b)`, not `( a, b )`.
+    "space-in-parens": [2, "never"],
+
+    // House style rule: Require that infix operators must be surounded by
+    // spaces. Must be like `a + b`, not `a+b`.
+    "space-infix-ops": 2,
+
+    // House style rule: Require that `return`, `throw`, and `case` are followed
+    // by a space.
+    "space-return-throw-case": 2,
+
+    // House style rules: Require sane spacing around unary operators. Unary
+    // operators that are words like 'typeof' require a space, non-word unary
+    // operators like `++` disallow a space.
+    "space-unary-ops": 2,
+
+    // House style rule: Require that comments are followed by an initial
+    // whitespace character. Exceptions are made for `-`, `=`, `*`.
+    "spaced-comment": [2, "always", { "exceptions": ["-"] }],
+
+    // House style rule: Wrap regex literals in parentheses for clarity.
+    "wrap-regex": 2,
+
+    // -------------------------------------------------------------------------
+    // ECMAScript 6
+    // -------------------------------------------------------------------------
+
+    // House style rule: Always require parentheses around arrow function
+    // arguments, even when there is only one. This increases clarity and
+    // decreases the friction of adding Flow type annotations (which require
+    // parentheses even around single arguments once the argument type is
+    // added).
+    "arrow-parens": [2, "always"],
+
+    // House style rule: Require a space before and after the arrow function
+    // operator.
+    "arrow-spacing": 2,
+
+    // Both require necessary calls and prevent unnecessary calls to `super()`
+    // in constructors.
+    "constructor-super": 2,
+
+    // House style rule: Enforce that there is a space before and a space after
+    // the `*` in a generator function declaration.
+    "generator-star-spacing": [2, { "before": true, "after": true }],
+
+    // Disallow confusing or ambiguous usage of arrow functions within
+    // conditionals.
+    "no-arrow-condition": 2,
+
+    // Disallow reassignment of class declaration variables. This is most likely
+    // an unintentional error.
+    "no-class-assign": 2,
+
+    // Disallow reassignment of `const` variables. This is not allowed.
+    "no-const-assign": 2,
+
+    // Disallow duplicate class member names. This is a bad practice and can
+    // have unexpected results.
+    "no-dupe-class-members": 2,
+
+    // Disallow references to `this`/`super` before calling `super()` in
+    // constructors that require it. This is not allowed.
+    "no-this-before-super": 2,
+
+    // Disallow the use of `var`, and require use of `let` or `const` instead.
+    // With ES6, there is no reason to continue using `var`, and much to gain by
+    // depending on the more rational block-scoped characteristics of `let` and
+    // `const`.
+    "no-var": 2,
+
+    // House style rule: Require use of arrow functions for callbacks. This
+    // increases brevity and side-steps potential issues around `this` binding.
+    "prefer-arrow-callback": 2,
+
+    // Require that all variables that are never modified be declared using
+    // `const`. This improves readability and avoids potential bugs.
+    "prefer-const": 2,
+
+    // Require that the ES6 spread operator be used in instances when previously
+    // `.apply()` would have been. The spread operator is cleaner and more
+    // intuitive.
+    "prefer-spread": 2,
+
+    // In node, allow console
+    "no-console": 0
+  }
+}
